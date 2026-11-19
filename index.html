@@ -101,7 +101,7 @@ const x=cinfo();return `<div class="c"><div class="mu">Efectivo que debería hab
 <button class="g w" onclick="ask('Retiro o gasto','Monto sacado de la caja ($)',v=>{db.c.e.push(v);save();render()})">Retiro / gasto</button><button class="p w" onclick="cerrar()">Cerrar caja</button>`}
 function cerrar(){const x=cinfo();ask('Cerrar caja','¿Cuánto efectivo contaste? ($)',v=>{db.ch.push({t0:db.c.t,t1:Date.now(),i:db.c.i,ex:x.ex,cnt:v,by:x.by});db.c=null;save();render();const d=v-x.ex;op(`<h3>Caja cerrada</h3><div class="n">${d==0?'✅ Cuadra perfecto':d>0?'Sobran '+$$(d):'Faltan '+$$(-d)}</div><div class="mu">Esperado ${$$(x.ex)} · contado ${$$(v)}</div><div class="r"><button class="p" onclick="cl()">Listo</button></div>`)})}
 /* GOOGLE DRIVE (paso 1: backup) */
-const CID='PEGAR_AQUI_TU_CLIENT_ID.apps.googleusercontent.com',SC='https://www.googleapis.com/auth/drive.appdata',FN='kiosco-backup.json',LS=localStorage;
+const CID='351399461922-vp8f3kfoacmr90eq0u7cdrodjgfuq8lo.apps.googleusercontent.com',SC='https://www.googleapis.com/auth/drive.appdata',FN='kiosco-backup.json',LS=localStorage;
 let tk=null,tkx=0,gtm;const gl=()=>!!LS.getItem('kfg'),cfg=()=>!CID.startsWith('PEGAR');
 function gtoken(ui){return new Promise((ok,no)=>{if(tk&&Date.now()<tkx)return ok(tk);if(!cfg()||!window.google||!google.accounts)return no('x');
 google.accounts.oauth2.initTokenClient({client_id:CID,scope:SC,error_callback:no,callback:r=>{if(r.error)return no(r.error);tk=r.access_token;tkx=Date.now()+(r.expires_in-60)*1e3;ok(tk)}}).requestAccessToken({prompt:ui?'consent':''})})}
